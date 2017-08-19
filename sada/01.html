@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+      #tab div,#tab1 div {
+        width: 300px;
+        height: 200px;
+        background-color: lightgreen;
+        display: none;
+      }
+    </style>
+    <script type="text/javascript" src="tab.js"></script>
+    <script type="text/javascript">
+    onload = function(){
+      function MyTab(){
+        this.nowIndex = 0;
+      }
+      MyTab.prototype = new Tab('tab');
+      MyTab.prototype.autoPlay = function(){
+        // 缓存实例对象
+        var that = this;
+        setInterval(function(){
+          if(that.nowIndex == that.aInput.length - 1){
+            // 此时已经到了最后一个，然后重新回到第一个
+            that.nowIndex = 0;
+          }else{
+            that.nowIndex++;
+          }
+          // 调用切换操作
+          var nowInput = that.aInput[that.nowIndex];
+          that.change(nowInput);
+        },1000);
+      }
+
+      var mytab = new MyTab();
+      mytab.init();
+      mytab.autoPlay();
+    }
+    /*
+      caller callee
+      继承：重用已经存在的代码（基于构造函数-构造函数的实例对象）
+    */
+
+
+
+    // function ClassA(sColor) {
+    //     this.color = sColor;
+    // }
+    // ClassA.prototype.sayColor = function() {
+    //     alert(this.color);
+    // };
+
+    // function ClassB(sColor, sName) {
+    //     ClassA.call(this, sColor);
+    //     this.name = sName;
+    // }
+    // ClassB.prototype = new ClassA();
+    // ClassB.prototype.sayName = function() {
+    //     alert(this.name);
+    // };
+    // var objA = new ClassA("blue");
+
+    // var objB = new ClassB("red", "John");
+    // objA.sayColor(); //输出 "blue" objB.sayColor();
+    </script>
+</head>
+
+<body>
+  <div id="tab">
+    <input type="button" value="苹果">
+    <input type="button" value="芒果">
+    <input type="button" value="凤梨">
+    <div>apple</div>
+    <div>mango</div>
+    <div>pineapple</div>
+  </div>
+</body>
+
+</html>

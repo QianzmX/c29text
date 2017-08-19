@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style type="text/css">
+  *{
+    margin: 0;
+    padding: 0;
+  }
+  #target {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    cursor: pointer;
+  }
+  </style>
+  <script type="text/javascript">
+  /*
+  拖拽功能
+  */
+  </script>
+</head>
+<body>
+  <div id="target">测试数据</div>
+  <script type="text/javascript">
+    var target = document.getElementById('target');
+    target.onmousedown = function(e){
+      e = e || window.event;
+      var alphaX = e.clientX - target.offsetLeft;
+      var alphaY = e.clientY - target.offsetTop;
+      document.onmousemove = function(e){
+        e = e || window.event;
+        var limitX = e.clientX - alphaX;
+        var limitY = e.clientY - alphaY;
+        if(limitX < 0){
+          limitX = 0;
+        }else if(limitX > document.documentElement.clientWidth - target.offsetWidth){
+          limitX = document.documentElement.clientWidth - target.offsetWidth;
+        }
+        if(limitY < 0){
+          limitY = 0;
+        }else if(limitY > document.documentElement.clientHeight - target.offsetHeight){
+          limitY = document.documentElement.clientHeight - target.offsetHeight;
+        }
+        
+        target.style.left = limitX + 'px';
+        target.style.top = limitY + 'px';
+      }
+      document.onmouseup = function(){
+        document.onmousemove = null;
+        document.onmouseup = null;
+      }
+      return false;
+    }
+  </script>
+</body>
+</html>
